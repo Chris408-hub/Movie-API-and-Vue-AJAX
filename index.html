@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, width=device-width">
+    <title>Movies API</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato%7CRaleway" rel="stylesheet">
+    <link href="css/grid.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script defer src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+<div class="grid-con" id="app">
+    <div class="col-span-full">
+        <h2>Chinese animation movies</h2>
+        <p>click on a movie poster to find more</p>
+        <ul>
+            <li v-for="movie in movies" :key="movie.id">
+                <img class="movie-poster" :src="'images/' + movie.poster_path" @click="getMovieDetails(movie.id)" :alt="movie.id">
+            </li>
+        </ul>
+    </div>
+</div>
+
+<div class="col-span-full" id="modal" v-if="selectedPoster !== null">
+    <div class="modal-content">
+        <span class="close" @click="closeDetails">&times;</span>
+        <p>{{selectedPoster.name}}</p>
+        <p>{{selectedPoster.release_year}}</p>
+        <p>{{selectedPoster.description}}</p>
+    </div>
+</div>
+</body>
+</html>
