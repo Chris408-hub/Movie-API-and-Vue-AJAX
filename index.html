@@ -4,33 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, width=device-width">
     <title>Movies API</title>
-    <link href="https://fonts.googleapis.com/css?family=Lato%7CRaleway" rel="stylesheet">
-    <link href="css/grid.css" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">    <link href="css/grid.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
+    
     <script defer src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <script type="module" src="js/main.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+    <!-- <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script> -->
+    <script defer type="module" src="js/main.js"></script>
 </head>
 
 <body>
 <div class="grid-con" id="app">
-    <div class="col-span-full">
-        <h2>Chinese animation movies</h2>
-        <p>click on a movie poster to find more</p>
-        <ul>
+    <div class="col-span-full" id="content">
+        <h2>Chinese Animation Movies</h2>
+        <p class="click">Click on a movie poster to find more...</p>
+        <ul class="poster-con">
             <li v-for="movie in movies" :key="movie.id">
+                    <div v-if="isLoading" class="loading-icon">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 100 100"
+                            preserveAspectRatio="xMidYMid"
+                            width="50"
+                            height="50"
+                            fill="#ccc"
+                        >
+                            <circle cx="50" cy="50" r="45" stroke-width="5" stroke="#ccc" stroke-dasharray="283" stroke-dashoffset="0">
+                                <animate
+                                    attributeName="stroke-dashoffset"
+                                    dur="2s"
+                                    repeatCount="indefinite"
+                                    from="0"
+                                    to="283"
+                                ></animate>
+                            </circle>
+                        </svg>
+                    </div> 
                 <img class="movie-poster" :src="'images/' + movie.poster_path" @click="getMovieDetails(movie.id)" :alt="movie.id">
+              
+     <div v-if="selectedMovie && selectedMovie.id === movie.id" class="modal-content">
+                    <span class="close" @click="closeDetails">&times;</span>
+                    <p class="name">{{ selectedMovie.name }}</p>
+                    <p class="year">{{ selectedMovie.release_year }}</p>
+                    <p class="des">{{ selectedMovie.description }}</p>
+                </div>
             </li>
         </ul>
     </div>
-</div>
 
-<div class="col-span-full" id="modal" v-if="selectedPoster !== null">
-    <div class="modal-content">
-        <span class="close" @click="closeDetails">&times;</span>
-        <p>{{selectedPoster.name}}</p>
-        <p>{{selectedPoster.release_year}}</p>
-        <p>{{selectedPoster.description}}</p>
-    </div>
+    <!-- Error Message -->
+    <div class="col-span-full" v-if="error" class="error-message">{{ error }}</div>
 </div>
 </body>
 </html>

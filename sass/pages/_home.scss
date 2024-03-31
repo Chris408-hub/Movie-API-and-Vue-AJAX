@@ -1,0 +1,125 @@
+@use '../abstracts' as a;
+
+body{
+
+    background-color: a.$primary-color;
+
+}
+h2{
+    color: a.$second-color;
+    margin-top: 20px;
+    font-size: 35px;
+}
+p{
+    font-size: 15px;
+}
+
+.click{
+	margin-top: 10px;
+    color: a.$third-color;
+}
+
+
+#content {
+    padding: 20px;
+}
+
+ul {
+    padding: 0;
+}
+
+li {
+    list-style-type: none;
+	position: relative; 
+
+}
+p{
+    color:#fff;
+}
+
+.poster-con {
+    margin: 50px;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.movie-poster {
+    width: 380px;
+    height: 550px;
+}
+
+.modal-content {
+	height: 550px;
+	position: absolute; 
+	top: 0; 
+	left: 0;
+	padding: 35% 25px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: a.$primary-color;
+
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+	z-index: 333;
+}
+
+.close{
+    position: absolute;
+    top: 70px; 
+    right:30px;
+    font-size: 55px;
+	line-height: 50px;
+    color: a.$second-color;
+    cursor: pointer;
+	&:hover{
+		color: a.$primary-color;
+	}
+}
+
+.name{
+    font-size: 20px;
+    font-weight: 500;
+}
+.year{
+    color:a.$second-color;
+    margin: 20px auto;
+}
+
+.des{
+    line-height: 30px;
+}
+
+
+@media screen and (min-width: 768px) {
+    .poster-con {
+        flex-direction: row;
+		
+    }
+
+    li {
+        width: calc(33.33% - 20px);
+
+    }
+
+	.movie-poster {
+    height: 500px;
+}
+
+.modal-content {
+	height: 500px;
+
+
+	padding: -20px auto;
+}
+
+
+
+}
+
+@media screen and (min-width: 1200px) {
+.modal-content {
+
+	height: 500px;
+
+	padding: 10% auto;
+}
+}
